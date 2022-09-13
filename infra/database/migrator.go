@@ -1,33 +1,75 @@
 package database
 
 import (
+	"database/sql"
 	"embed"
 	"log"
+
+	_ "github.com/denisenkom/go-mssqldb"
+	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
+	"github.com/pressly/goose/v3"
 )
 
 var (
-	embedMigrations embed.FS
+	//go:embed migrations/*.sql
+	embedMigrations  embed.FS
+	connectionString string
+	migrationsPath   string
 )
 
+func init() {
+	connectionString = crossCutting.GetConnectionString()
+	migrationsPath = "migrations"
+}
+
 func Up() {
-	// log.SetFlags(0)
-	// db, err := sql.Open("mssql", "embed_example.sql")
-	// goose.SetBaseFS(embedMigrations)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	db, err := sql.Open("sqlserver", connectionString)
+	goose.SetBaseFS(embedMigrations)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// goose.SetDialect("mssql")
+	if err := goose.SetDialect("mssql"); err != nil {
+		panic(err)
+	}
 
-	// if err := goose.Up(db, "migrations"); err != nil { //
-	// 	panic(err)
-	// }
-	// if err := goose.Version(db, "migrations"); err != nil {
-	// 	log.Fatal(err)
-	// }
-	log.Print("Migrating...")
+	if err := goose.Up(db, migrationsPath); err != nil {
+		panic(err)
+	}
+
+	if err := goose.Version(db, migrationsPath); err != nil {
+		panic(err)
+	}
+
+	defer func() {
+		if err := db.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
 }
 
 func Down() {
-	log.Print("Rolling back...")
+	db, err := sql.Open("sqlserver", connectionString)
+	goose.SetBaseFS(embedMigrations)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := goose.SetDialect("mssql"); err != nil {
+		panic(err)
+	}
+
+	if err := goose.Down(db, migrationsPath); err != nil {
+		panic(err)
+	}
+
+	if err := goose.Version(db, migrationsPath); err != nil {
+		log.Fatal(err)
+	}
+
+	defer func() {
+		if err := db.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
 }

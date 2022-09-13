@@ -1,6 +1,7 @@
 package crossCutting
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -24,4 +25,10 @@ func LoadEnvs() domain.Env {
 	}
 
 	return envs
+}
+
+func GetConnectionString() string {
+	envs := LoadEnvs()
+	return fmt.Sprintf("sqlserver://%s:%s@%s:%s?database-%s",
+		envs.DB_USER, envs.DB_PASSWORD, envs.DB_HOST, envs.DB_PORT, envs.DB_NAME)
 }
