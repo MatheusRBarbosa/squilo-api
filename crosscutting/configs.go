@@ -9,7 +9,13 @@ import (
 	"github.com/matheusrbarbosa/gofin/domain/models"
 )
 
-func LoadEnvs() models.Env {
+var appEnvs *models.Env
+
+func init() {
+	LoadEnvs()
+}
+
+func LoadEnvs() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -24,11 +30,10 @@ func LoadEnvs() models.Env {
 		DB_PASSWORD: os.Getenv("DB_PASSWORD"),
 	}
 
-	return envs
+	appEnvs = &envs
 }
 
 func GetConnectionString() string {
-	envs := LoadEnvs()
 	return fmt.Sprintf("sqlserver://%s:%s@%s:%s?database-%s",
-		envs.DB_USER, envs.DB_PASSWORD, envs.DB_HOST, envs.DB_PORT, envs.DB_NAME)
+		appEnvs.DB_USER, appEnvs.DB_PASSWORD, appEnvs.DB_HOST, appEnvs.DB_PORT, appEnvs.DB_NAME)
 }
