@@ -1,12 +1,18 @@
 package models
 
-import "github.com/matheusrbarbosa/gofin/domain/dtos"
+import (
+	"time"
+
+	"github.com/matheusrbarbosa/gofin/domain/dtos"
+)
 
 type User struct {
-	ID       int
-	Name     string
-	Email    string
-	Password string
+	ID        int
+	Name      string
+	Email     string
+	Password  string
+	CreatedAt time.Time `gorm:"column:createdAt"`
+	UpdatedAt time.Time `gorm:"column:updatedAt"`
 }
 
 func (user *User) ParseDto() dtos.UserDto {
