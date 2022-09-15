@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/matheusrbarbosa/gofin/application/handlers"
 	"github.com/matheusrbarbosa/gofin/application/validators"
 )
 
@@ -14,5 +15,5 @@ func handleSignup(context *gin.Context) {
 		return
 	}
 
-	context.IndentedJSON(http.StatusOK, "cadastrado")
+	context.IndentedJSON(http.StatusOK, handlers.HandleSignup(request))
 }
