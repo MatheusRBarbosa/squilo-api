@@ -3,7 +3,9 @@ package database
 import (
 	"database/sql"
 	"embed"
+	"fmt"
 	"log"
+	"os"
 
 	_ "github.com/denisenkom/go-mssqldb"
 	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
@@ -64,6 +66,30 @@ func Down() {
 	}
 
 	if err := goose.Version(db, migrationsPath); err != nil {
+		log.Fatal(err)
+	}
+
+	defer func() {
+		if err := db.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+}
+
+func Create(name string) {
+	db, err := sql.Open("sqlserver", connectionString)
+	goose.SetBaseFS(embedMigrations)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	folder := fmt.Sprintf("%s/infra/database/%s", dir, migrationsPath)
+	if err := goose.Create(db, folder, name, "sql"); err != nil {
 		log.Fatal(err)
 	}
 

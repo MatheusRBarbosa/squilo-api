@@ -15,10 +15,19 @@ var (
 		Args:  cobra.ExactArgs(1),
 		RunE:  migrateExecute,
 	}
+
+	createMigrationCommand = &cobra.Command{
+		Use:   "create migration [name]",
+		Short: "Create migration",
+		Long:  "Create SQL migration file template",
+		Args:  cobra.ExactArgs(2),
+		RunE:  createMigrationExecute,
+	}
 )
 
 func init() {
 	rootCmd.AddCommand(migrationCommand)
+	rootCmd.AddCommand(createMigrationCommand)
 }
 
 func migrateExecute(cmd *cobra.Command, args []string) error {
@@ -29,6 +38,16 @@ func migrateExecute(cmd *cobra.Command, args []string) error {
 
 	if args[0] == "down" {
 		migrator.Down()
+		return nil
+	}
+
+	log.Fatal("Command flag not supported")
+	return nil
+}
+
+func createMigrationExecute(cmd *cobra.Command, args []string) error {
+	if args[0] == "migration" {
+		migrator.Create(args[1])
 		return nil
 	}
 
