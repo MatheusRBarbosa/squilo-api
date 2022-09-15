@@ -2,13 +2,12 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	utils "github.com/matheusrbarbosa/gofin/api/v1/utils"
 )
 
 func StartHttpServer() {
-	router := gin.Default()
+	server := gin.New()
 
-	router.GET("ping", utils.Ping)
+	Router(server)
 
-	router.Run(":8080")
+	server.Run(":8000")
 }

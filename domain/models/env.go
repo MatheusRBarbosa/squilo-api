@@ -1,4 +1,4 @@
-package domain
+package models
 
 type Env struct {
 	APP_ENV     string

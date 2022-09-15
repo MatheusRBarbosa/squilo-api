@@ -6,6 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Ping(context *gin.Context) {
+func handlePing(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, "Pong")
 }

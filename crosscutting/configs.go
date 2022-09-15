@@ -6,16 +6,16 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/matheusrbarbosa/gofin/domain"
+	"github.com/matheusrbarbosa/gofin/domain/models"
 )
 
-func LoadEnvs() domain.Env {
+func LoadEnvs() models.Env {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
-	envs := domain.Env{
+	envs := models.Env{
 		APP_ENV:     os.Getenv("APP_ENV"),
 		DB_HOST:     os.Getenv("DB_HOST"),
 		DB_PORT:     os.Getenv("DB_PORT"),
