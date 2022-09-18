@@ -3,8 +3,16 @@ package models
 import (
 	"time"
 
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/matheusrbarbosa/gofin/domain/dtos"
 )
+
+type UserCustomClaims struct {
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	jwt.StandardClaims
+}
 
 type User struct {
 	ID        int
