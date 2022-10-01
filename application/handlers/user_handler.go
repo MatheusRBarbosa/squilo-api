@@ -9,7 +9,7 @@ import (
 func HandleSignup(request v.SignupRequest) dtos.UserDto {
 	user := request.ParseToUser()
 
-	user = repository.CreateUser(user)
+	user = repository.Create(user)
 
 	return user.ParseDto()
 }
