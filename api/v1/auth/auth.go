@@ -15,5 +15,11 @@ func handleLogin(context *gin.Context) {
 		return
 	}
 
-	context.IndentedJSON(http.StatusOK, handlers.HandleLogin(request))
+	response, err := handlers.HandleLogin(context, request)
+	if err != nil {
+		context.Error(err)
+		return
+	}
+
+	context.IndentedJSON(http.StatusOK, response)
 }
