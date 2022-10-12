@@ -14,6 +14,11 @@ func ValidateJWT() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		const SCHEMA = "Bearer"
 		header := context.GetHeader("Authorization")
+		if header == "" {
+			context.AbortWithStatusJSON(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
+			return
+		}
+
 		jwt := strings.Trim(header[len(SCHEMA):], " ")
 
 		token, _ := services.AuthService().Validate(jwt)
@@ -22,12 +27,12 @@ func ValidateJWT() gin.HandlerFunc {
 			user, err := repositories.UserRepository().GetById(claims.ID)
 
 			if err != nil {
-				context.AbortWithError(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
+				context.AbortWithStatusJSON(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
 			}
 
 			services.AuthService().SetAuthUser(user)
 		} else {
-			context.AbortWithError(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
+			context.AbortWithStatusJSON(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
 		}
 	}
 }
