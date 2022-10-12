@@ -10,7 +10,7 @@ func StartHttpServer() {
 	server := gin.New()
 	server.Use(middleware.ErrorHandler())
 	database.ConnectDatabase()
-	Router(server)
+	ApiRouter(server)
 
 	server.Run(":8000")
 }
