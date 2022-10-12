@@ -2,25 +2,34 @@ package middleware
 
 import (
 	"fmt"
-	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/matheusrbarbosa/gofin/application/services"
+	"github.com/matheusrbarbosa/gofin/domain/exceptions"
+	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
 )
 
 func ValidateJWT() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		const SCHEMA = "Bearer"
 		header := context.GetHeader("Authorization")
-		jwt := header[len(SCHEMA):]
+		jwt := strings.Trim(header[len(SCHEMA):], " ")
 
-		token, err := services.JWTService().Validate(jwt)
+		token, _ := services.AuthService().Validate(jwt)
 		if token.Valid {
-			claims := token.Claims
-			fmt.Println(claims)
+			claims := token.Claims.(*models.UserCustomClaims)
+			fmt.Printf("id: %v", claims.Id)
+			user, err := repositories.UserRepository().GetById(claims.ID)
+
+			if err != nil {
+				context.AbortWithError(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
+			}
+
+			services.AuthService().SetAuthUser(user)
 		} else {
-			fmt.Println(err)
-			context.AbortWithError(http.StatusUnauthorized, gin.Error{})
+			context.AbortWithError(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
 		}
 	}
 }

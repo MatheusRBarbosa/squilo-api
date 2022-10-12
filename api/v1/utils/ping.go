@@ -1,9 +1,11 @@
 package utils
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/matheusrbarbosa/gofin/application/services"
 )
 
 func handlePing(context *gin.Context) {
@@ -11,5 +13,5 @@ func handlePing(context *gin.Context) {
 }
 
 func handleCheckJwt(context *gin.Context) {
-	context.IndentedJSON(http.StatusOK, "User logged in")
+	context.IndentedJSON(http.StatusOK, fmt.Sprintf("User: %v", services.AuthService().GetAuthUser().Email))
 }

@@ -9,7 +9,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func HandleLogin(context *gin.Context, request validators.LoginRequest) (*gin.H, error) {
+func HandleLogin(request validators.LoginRequest) (*gin.H, error) {
 	user, err := repositories.UserRepository().GetByEmail(request.Email)
 	invalidPassword := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(request.Password))
 
@@ -17,6 +17,6 @@ func HandleLogin(context *gin.Context, request validators.LoginRequest) (*gin.H,
 		return nil, exceptions.UNAUTHORIZED
 	}
 
-	token := services.JWTService().Generate(user)
+	token := services.AuthService().Generate(user)
 	return &gin.H{"token": token}, nil
 }

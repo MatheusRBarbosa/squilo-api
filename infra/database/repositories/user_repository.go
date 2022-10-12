@@ -12,7 +12,7 @@ func UserRepository() interfaces.UserRepository {
 	return &userRepository{}
 }
 
-func (service *userRepository) Create(user models.User) models.User {
+func (ur *userRepository) Create(user models.User) models.User {
 	result := database.DbContext.Create(&user)
 	if result.Error != nil {
 		panic(result.Error.Error())
@@ -21,9 +21,16 @@ func (service *userRepository) Create(user models.User) models.User {
 	return user
 }
 
-func (service *userRepository) GetByEmail(email string) (models.User, error) {
+func (ur *userRepository) GetByEmail(email string) (models.User, error) {
 	user := models.User{}
 	err := database.DbContext.Where(&models.User{Email: email}).First(&user).Error
+
+	return user, err
+}
+
+func (ur *userRepository) GetById(id int) (models.User, error) {
+	user := models.User{}
+	err := database.DbContext.Where(&models.User{ID: id}).First(&user).Error
 
 	return user, err
 }

@@ -6,36 +6,40 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
+	"github.com/matheusrbarbosa/gofin/domain/exceptions"
 	"github.com/matheusrbarbosa/gofin/domain/interfaces"
 	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
 )
 
-type jwtServices struct {
+var authedUser *models.User
+
+type authService struct {
 	secret string
 	issure string
 }
 
-func JWTService() interfaces.JWTService {
-	return &jwtServices{
+func AuthService() interfaces.AuthService {
+	return &authService{
 		secret: crossCutting.AppEnvs.JWT_SECRET,
-		issure: "matheusrbarbosa",
+		issure: "gofin",
 	}
 }
 
-func (service *jwtServices) Generate(user models.User) string {
+func (s *authService) Generate(user models.User) string {
 	claims := &models.UserCustomClaims{
 		ID:    user.ID,
 		Email: user.Email,
 		Name:  user.Name,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 48).Unix(),
-			Issuer:    service.issure,
+			Issuer:    s.issure,
 			IssuedAt:  time.Now().Unix(),
 		},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	jwtToken, err := token.SignedString([]byte(service.secret))
+	jwtToken, err := token.SignedString([]byte(s.secret))
 	if err != nil {
 		panic(err)
 	}
@@ -43,12 +47,26 @@ func (service *jwtServices) Generate(user models.User) string {
 	return jwtToken
 }
 
-func (service *jwtServices) Validate(token string) (*jwt.Token, error) {
-	return jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
+func (s *authService) Validate(token string) (*jwt.Token, error) {
+	return jwt.ParseWithClaims(token, &models.UserCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, isvalid := token.Method.(*jwt.SigningMethodHMAC); !isvalid {
 			return nil, fmt.Errorf("Invalid token", token.Header["alg"])
 
 		}
-		return []byte(service.secret), nil
+		return []byte(s.secret), nil
 	})
+}
+
+func (s *authService) SetAuthUser(user models.User) error {
+	user, err := repositories.UserRepository().GetById(user.ID)
+	if err != nil {
+		return exceptions.UNAUTHORIZED
+	}
+
+	authedUser = &user
+	return nil
+}
+
+func (s *authService) GetAuthUser() *models.User {
+	return authedUser
 }
