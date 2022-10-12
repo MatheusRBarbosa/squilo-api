@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +19,6 @@ func ValidateJWT() gin.HandlerFunc {
 		token, _ := services.AuthService().Validate(jwt)
 		if token.Valid {
 			claims := token.Claims.(*models.UserCustomClaims)
-			fmt.Printf("id: %v", claims.Id)
 			user, err := repositories.UserRepository().GetById(claims.ID)
 
 			if err != nil {
