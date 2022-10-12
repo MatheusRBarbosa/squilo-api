@@ -2,6 +2,6 @@ package auth
 
 import "github.com/gin-gonic/gin"
 
-func RegisterAuthRoutes(server *gin.Engine) {
-	server.POST("api/v1/login", handleLogin)
+func RegisterAuthRoutes(v1 *gin.RouterGroup) {
+	v1.POST("login", handleLogin)
 }
