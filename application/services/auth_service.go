@@ -31,10 +31,10 @@ func (s *authService) Generate(user models.User) string {
 		ID:    user.ID,
 		Email: user.Email,
 		Name:  user.Name,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 48).Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 24 * 7 * 2)),
 			Issuer:    s.issure,
-			IssuedAt:  time.Now().Unix(),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
 		},
 	}
 

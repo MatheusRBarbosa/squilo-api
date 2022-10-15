@@ -30,7 +30,7 @@ func init() {
 	rootCmd.AddCommand(createMigrationCommand)
 }
 
-func migrateExecute(cmd *cobra.Command, args []string) error {
+func migrateExecute(_ *cobra.Command, args []string) error {
 	if args[0] == "up" {
 		migrator.Up()
 		return nil
@@ -45,7 +45,7 @@ func migrateExecute(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func createMigrationExecute(cmd *cobra.Command, args []string) error {
+func createMigrationExecute(_ *cobra.Command, args []string) error {
 	if args[0] == "migration" {
 		migrator.Create(args[1])
 		return nil

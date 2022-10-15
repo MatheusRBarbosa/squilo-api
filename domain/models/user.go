@@ -11,7 +11,7 @@ type UserCustomClaims struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 type User struct {

@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Launch API server",
+        "debugAdapter": "dlv-dap",
+        "type": "go",
+        "request": "launch",
+        "mode": "debug",
+        "program": "${workspaceFolder}",
+        "args": [
+          "api"
+        ]
+      }
+    ]
+  }
