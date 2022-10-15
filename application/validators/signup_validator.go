@@ -6,9 +6,10 @@ import (
 )
 
 type SignupRequest struct {
-	Name     string `json:"name" binding:"required"`
-	Email    string `json:"email" binding:"required,email"`
-	Password string `json:"password" binding:"required,gte=6"`
+	Name      string `json:"name" binding:"required"`
+	Email     string `json:"email" binding:"required,email"`
+	BirthDate string `json:"birthDate" binding:"required"` //TODO: Validar formato de data
+	Password  string `json:"password" binding:"required,gte=6"`
 }
 
 func (r *SignupRequest) ParseToUser() models.User {

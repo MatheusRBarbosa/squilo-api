@@ -35,6 +35,6 @@ func LoadEnvs() {
 }
 
 func GetConnectionString() string {
-	return fmt.Sprintf("sqlserver://%s:%s@%s:%s?database-%s",
+	return fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=disable",
 		AppEnvs.DB_USER, AppEnvs.DB_PASSWORD, AppEnvs.DB_HOST, AppEnvs.DB_PORT, AppEnvs.DB_NAME)
 }

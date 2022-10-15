@@ -18,7 +18,7 @@ func init() {
 	rootCmd.AddCommand(apiCommand)
 }
 
-func apiExecute(cmd *cobra.Command, args []string) error {
+func apiExecute(_ *cobra.Command, _ []string) error {
 	server.StartHttpServer()
 	return nil
 }

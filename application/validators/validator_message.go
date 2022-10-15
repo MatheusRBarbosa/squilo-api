@@ -7,17 +7,17 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-type ApiError struct {
+type apiError struct {
 	Param   string
 	Message string
 }
 
-func ParseError(err error) []ApiError {
+func ParseError(err error) []apiError {
 	var validationErros validator.ValidationErrors
 	if errors.As(err, &validationErros) {
-		out := make([]ApiError, len(validationErros))
+		out := make([]apiError, len(validationErros))
 		for i, fe := range validationErros {
-			out[i] = ApiError{fe.Field(), parseErrorMessage(fe)}
+			out[i] = apiError{fe.Field(), parseErrorMessage(fe)}
 		}
 		return out
 	}

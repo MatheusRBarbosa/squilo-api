@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	_ "github.com/denisenkom/go-mssqldb"
+	_ "github.com/lib/pq"
 	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
 	"github.com/pressly/goose/v3"
 )
@@ -25,13 +25,13 @@ func init() {
 }
 
 func Up() {
-	db, err := sql.Open("sqlserver", connectionString)
+	db, err := sql.Open("postgres", connectionString)
 	goose.SetBaseFS(embedMigrations)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := goose.SetDialect("mssql"); err != nil {
+	if err := goose.SetDialect("postgres"); err != nil {
 		panic(err)
 	}
 
@@ -51,13 +51,13 @@ func Up() {
 }
 
 func Down() {
-	db, err := sql.Open("sqlserver", connectionString)
+	db, err := sql.Open("postgres", connectionString)
 	goose.SetBaseFS(embedMigrations)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := goose.SetDialect("mssql"); err != nil {
+	if err := goose.SetDialect("postgres"); err != nil {
 		panic(err)
 	}
 
@@ -77,7 +77,7 @@ func Down() {
 }
 
 func Create(name string) {
-	db, err := sql.Open("sqlserver", connectionString)
+	db, err := sql.Open("postgres", connectionString)
 	goose.SetBaseFS(embedMigrations)
 	if err != nil {
 		log.Fatal(err)
