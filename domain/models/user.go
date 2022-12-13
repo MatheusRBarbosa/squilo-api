@@ -19,7 +19,7 @@ type User struct {
 	Name      string
 	Email     string
 	Password  string
-	BirthDate time.Time
+	BirthDate time.Time `gorm:"column:birthDate"`
 	CreatedAt time.Time `gorm:"column:createdAt"`
 	UpdatedAt time.Time `gorm:"column:updatedAt"`
 }

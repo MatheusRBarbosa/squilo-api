@@ -9,6 +9,7 @@ import (
 func HandleSignup(request v.SignupRequest) dtos.UserDto {
 	user := request.ParseToUser()
 
+	//TODO: validar se ja existe email cadastrado
 	user = repositories.UserRepository().Create(user)
 
 	return user.ParseDto()

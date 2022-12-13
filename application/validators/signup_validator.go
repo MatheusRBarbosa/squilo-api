@@ -1,6 +1,9 @@
 package validators
 
 import (
+	"log"
+	"time"
+
 	"github.com/matheusrbarbosa/gofin/domain/models"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -18,9 +21,15 @@ func (r *SignupRequest) ParseToUser() models.User {
 		panic(err)
 	}
 
+	birthDate, err := time.Parse("2006-01-02", r.BirthDate)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	return models.User{
-		Name:     r.Name,
-		Email:    r.Email,
-		Password: string(encryptedPassword),
+		Name:      r.Name,
+		Email:     r.Email,
+		Password:  string(encryptedPassword),
+		BirthDate: birthDate,
 	}
 }
