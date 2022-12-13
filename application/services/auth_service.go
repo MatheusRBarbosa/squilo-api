@@ -21,7 +21,7 @@ type authService struct {
 
 func AuthService() interfaces.AuthService {
 	return &authService{
-		secret: crossCutting.AppEnvs.JWT_SECRET,
+		secret: crossCutting.GetEnv("JWT_SECRET"),
 		issure: "gofin",
 	}
 }
