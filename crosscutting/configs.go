@@ -25,6 +25,11 @@ func GetConnectionString() string {
 	return connectionString
 }
 
+func IsProduction() bool {
+	env := GetEnv("APP_ENV")
+	return env == "prd" || env == "production" || env == "prod"
+}
+
 func loadEnvs() {
 	err := godotenv.Load()
 	if err != nil {

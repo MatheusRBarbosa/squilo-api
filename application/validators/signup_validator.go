@@ -1,9 +1,9 @@
 package validators
 
 import (
-	"log"
 	"time"
 
+	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
 	"github.com/matheusrbarbosa/gofin/domain/models"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -18,12 +18,12 @@ type SignupRequest struct {
 func (r *SignupRequest) ParseToUser() models.User {
 	encryptedPassword, err := bcrypt.GenerateFromPassword([]byte(r.Password), bcrypt.DefaultCost)
 	if err != nil {
-		panic(err)
+		l.GetLogger().Panicln(err)
 	}
 
 	birthDate, err := time.Parse("2006-01-02", r.BirthDate)
 	if err != nil {
-		log.Fatal(err)
+		l.GetLogger().Errorf(err.Error())
 	}
 
 	return models.User{

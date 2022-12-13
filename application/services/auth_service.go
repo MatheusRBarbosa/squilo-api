@@ -6,6 +6,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
+	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
 	"github.com/matheusrbarbosa/gofin/domain/exceptions"
 	"github.com/matheusrbarbosa/gofin/domain/interfaces"
 	"github.com/matheusrbarbosa/gofin/domain/models"
@@ -41,7 +42,7 @@ func (s *authService) Generate(user models.User) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	jwtToken, err := token.SignedString([]byte(s.secret))
 	if err != nil {
-		panic(err)
+		l.GetLogger().Panicln(err)
 	}
 
 	return jwtToken
@@ -50,7 +51,7 @@ func (s *authService) Generate(user models.User) string {
 func (s *authService) Validate(token string) (*jwt.Token, error) {
 	return jwt.ParseWithClaims(token, &models.UserCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, isvalid := token.Method.(*jwt.SigningMethodHMAC); !isvalid {
-			return nil, fmt.Errorf("Invalid token", token.Header["alg"])
+			return nil, fmt.Errorf("Invalid token %s", token.Header["alg"])
 
 		}
 		return []byte(s.secret), nil
