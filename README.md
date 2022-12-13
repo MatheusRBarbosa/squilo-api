@@ -14,3 +14,4 @@ v2 Features:
     - Geral
     - Cota
     - Recorrente
+- [ ] Editar configuracoes do cofre
