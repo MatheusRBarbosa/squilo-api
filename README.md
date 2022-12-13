@@ -1,7 +1,8 @@
 # Gofin - API para aplicação de fiananças pessoais
 
-Features:
+MVP Features:
 - [ ] Cadastro
+    - Ao realizar o cadastro, um cofre deve ser criado.
 - [ ] Login
 - [ ] CRUD gastos
-- [ ] CRUD caixas
+    - O usuario pode cadastrar incomes/outcomes para um cofre.
