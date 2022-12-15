@@ -29,6 +29,9 @@ func (ur *userRepository) Create(user models.User) models.User {
 func (ur *userRepository) GetByEmail(email string) (models.User, error) {
 	user := models.User{}
 	err := ur.context.Where(&models.User{Email: email}).First(&user).Error
+	if err == gorm.ErrRecordNotFound {
+		return user, gorm.ErrRecordNotFound
+	}
 
 	return user, err
 }
@@ -36,6 +39,9 @@ func (ur *userRepository) GetByEmail(email string) (models.User, error) {
 func (ur *userRepository) GetById(id int) (models.User, error) {
 	user := models.User{}
 	err := ur.context.Where(&models.User{ID: id}).First(&user).Error
+	if err == gorm.ErrRecordNotFound {
+		return user, gorm.ErrRecordNotFound
+	}
 
 	return user, err
 }

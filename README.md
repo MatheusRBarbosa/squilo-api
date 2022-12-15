@@ -1,11 +1,16 @@
 # Gofin - API para aplicação de fiananças pessoais
 
 v1 Features:
-- [ ] Cadastro
+- [X] Cadastro
     - Ao realizar o cadastro, um cofre deve ser criado.
-- [ ] Login
-- [ ] CRUD gastos
+- [X] Login
+- [ ] Criar gastos/apagar
     - O usuario pode cadastrar incomes/outcomes para um cofre.
+
+v1 Tech:
+- [ ] Versionamento de API
+- [ ] CI/CD
+- [ ] Configurar sentry
 
 v2 Features:
 - [ ] Recuperar senha
@@ -15,3 +20,6 @@ v2 Features:
     - Cota
     - Recorrente
 - [ ] Editar configuracoes do cofre
+
+v2 Tech:
+- [ ] Testes unitarios

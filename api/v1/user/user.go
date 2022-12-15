@@ -15,5 +15,11 @@ func handleSignup(context *gin.Context) {
 		return
 	}
 
-	context.IndentedJSON(http.StatusOK, handlers.HandleSignup(request))
+	response, err := handlers.HandleSignup(request)
+	if err != nil {
+		context.Error(err)
+		return
+	}
+
+	context.IndentedJSON(http.StatusOK, response)
 }
