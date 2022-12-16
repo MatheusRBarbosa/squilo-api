@@ -3,6 +3,7 @@ package validators
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -14,11 +15,18 @@ type apiError struct {
 
 func ParseError(err error) []apiError {
 	var validationErros validator.ValidationErrors
+	var timeError *time.ParseError
+
 	if errors.As(err, &validationErros) {
 		out := make([]apiError, len(validationErros))
 		for i, fe := range validationErros {
 			out[i] = apiError{fe.Field(), parseErrorMessage(fe)}
 		}
+		return out
+	} else if errors.As(err, &timeError) {
+		out := make([]apiError, 1)
+		out[0] = apiError{timeError.Value, fmt.Sprintf("Should have %s format", timeError.Layout)}
+
 		return out
 	}
 

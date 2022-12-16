@@ -9,10 +9,10 @@ import (
 )
 
 type SignupRequest struct {
-	Name      string `json:"name" binding:"required"`
-	Email     string `json:"email" binding:"required,email"`
-	BirthDate string `json:"birthDate" binding:"required"` //TODO: Validar formato de data
-	Password  string `json:"password" binding:"required,gte=6"`
+	Name      string    `json:"name" binding:"required"`
+	Email     string    `json:"email" binding:"required,email"`
+	BirthDate time.Time `json:"birthDate" binding:"required" time_format:"2006-01-02"`
+	Password  string    `json:"password" binding:"required,gte=6"`
 }
 
 func (r *SignupRequest) ParseToUser() models.User {
@@ -21,7 +21,6 @@ func (r *SignupRequest) ParseToUser() models.User {
 		l.GetLogger().Panicln(err)
 	}
 
-	birthDate, err := time.Parse("2006-01-02", r.BirthDate)
 	if err != nil {
 		l.GetLogger().Errorf(err.Error())
 	}
@@ -30,6 +29,6 @@ func (r *SignupRequest) ParseToUser() models.User {
 		Name:      r.Name,
 		Email:     r.Email,
 		Password:  string(encryptedPassword),
-		BirthDate: birthDate,
+		BirthDate: r.BirthDate,
 	}
 }
