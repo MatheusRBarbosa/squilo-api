@@ -4,7 +4,7 @@ v1 Features:
 - [X] Cadastro
     - Ao realizar o cadastro, um cofre deve ser criado.
 - [X] Login
-- [ ] Criar gastos/apagar
+- [ ] CRUD gastos
     - O usuario pode cadastrar incomes/outcomes para um cofre.
 
 v1 Tech:
@@ -13,6 +13,7 @@ v1 Tech:
 - [ ] Configurar sentry
 
 v2 Features:
+- [ ] Apagar conta
 - [ ] Recuperar senha
 - [ ] Email de boas vindas
 - [ ] Criar outros cofres

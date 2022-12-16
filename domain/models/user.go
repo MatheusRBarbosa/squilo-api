@@ -22,6 +22,9 @@ type User struct {
 	BirthDate time.Time `gorm:"column:birthDate"`
 	CreatedAt time.Time `gorm:"column:createdAt"`
 	UpdatedAt time.Time `gorm:"column:updatedAt"`
+
+	// Relations
+	Vaults []Vault
 }
 
 func (user *User) ParseDto() dtos.UserDto {
