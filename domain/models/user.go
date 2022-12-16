@@ -5,6 +5,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/matheusrbarbosa/gofin/domain/dtos"
+	"gorm.io/gorm"
 )
 
 type UserCustomClaims struct {
@@ -22,6 +23,7 @@ type User struct {
 	BirthDate time.Time `gorm:"column:birthDate"`
 	CreatedAt time.Time `gorm:"column:createdAt"`
 	UpdatedAt time.Time `gorm:"column:updatedAt"`
+	DeletedAt gorm.DeletedAt
 
 	// Relations
 	Vaults []Vault

@@ -9,7 +9,7 @@ CREATE TABLE vaults(
     "typeId" int NOT NULL,
     "createdAt" timestamp NOT NULL,
     "updatedAt" timestamp NOT NULL,
-    "deletedAt" timestamp,
+    "deleted_at" timestamp,
     FOREIGN KEY ("userId") REFERENCES users(id),
     FOREIGN KEY ("typeId") REFERENCES vault_types(id)
 );

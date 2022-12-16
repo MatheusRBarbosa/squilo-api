@@ -8,7 +8,7 @@ CREATE TABLE vault_types(
     "allowNegativeTransactions" boolean NOT NULL,
     "createdAt" timestamp NOT NULL,
     "updatedAt" timestamp NOT NULL,
-    "deletedAt" timestamp
+    "deleted_at" timestamp
 )
 -- +goose StatementEnd
 

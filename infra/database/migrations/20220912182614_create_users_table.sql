@@ -7,7 +7,7 @@ CREATE TABLE users (
     password varchar(255) NOT NULL,
     "createdAt" timestamp NOT NULL,
     "updatedAt" timestamp NOT NULL,
-    "deletedAt" timestamp
+    "deleted_at" timestamp
 );
 
 -- +goose Down

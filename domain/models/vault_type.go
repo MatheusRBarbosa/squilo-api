@@ -17,5 +17,5 @@ type VaultType struct {
 	DeletedAt                 gorm.DeletedAt
 
 	// Relations
-	Vaults []Vault
+	// Vaults []Vault
 }

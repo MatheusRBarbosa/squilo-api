@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/matheusrbarbosa/gofin/application/services"
 	v "github.com/matheusrbarbosa/gofin/application/validators"
 	"github.com/matheusrbarbosa/gofin/domain/dtos"
 	"github.com/matheusrbarbosa/gofin/domain/exceptions"
@@ -10,10 +11,12 @@ import (
 
 func HandleSignup(request v.SignupRequest) (dtos.UserDto, error) {
 	user := request.ParseToUser()
+	userService := services.UserService()
 	userRepository := repositories.UserRepository()
 
 	_, err := userRepository.GetByEmail(user.Email)
 	if err != nil && err == gorm.ErrRecordNotFound {
+		userService.PrepareToCreate(&user)
 		user = userRepository.Create(user)
 		return user.ParseDto(), nil
 	} else {
