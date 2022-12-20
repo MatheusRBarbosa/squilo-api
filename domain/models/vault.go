@@ -10,7 +10,8 @@ type Vault struct {
 	ID          int
 	Name        string
 	Description string
-	Configs     string    //TODO: coluna eh json, verificar como manipular
+	Configs     string //TODO: coluna eh json, verificar como manipular
+	Total       float32
 	UserId      int       `gorm:"column:userId"`
 	TypeId      int       `gorm:"column:typeId"`
 	CreatedAt   time.Time `gorm:"column:createdAt"`

@@ -17,7 +17,7 @@ func handleCreateTransaction(context *gin.Context) {
 		return
 	}
 
-	vaultId, err := strconv.Atoi(context.Param("id"))
+	vaultId, err := strconv.Atoi(context.Param("vaultId"))
 	if err != nil {
 		l.GetLogger().Error(err)
 		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})

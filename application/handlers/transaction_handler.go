@@ -7,11 +7,14 @@ import (
 	"github.com/matheusrbarbosa/gofin/domain/dtos"
 	"github.com/matheusrbarbosa/gofin/domain/exceptions"
 	i "github.com/matheusrbarbosa/gofin/domain/interfaces"
+	"github.com/matheusrbarbosa/gofin/infra/database"
 	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
+	"gorm.io/gorm"
 )
 
 type transactionHandler struct {
 	logger                logger.Logger
+	db                    *gorm.DB
 	transactionService    i.TransactionService
 	vaultRepository       i.VaultRepository
 	transactionRepository i.TransactionRepository
@@ -20,6 +23,7 @@ type transactionHandler struct {
 func TransactionHandler() *transactionHandler {
 	return &transactionHandler{
 		logger:                logger.GetLogger(),
+		db:                    database.Context(),
 		transactionService:    services.TransactionService(),
 		vaultRepository:       repositories.VaultRepository(),
 		transactionRepository: repositories.TransactionRepository(),
@@ -39,6 +43,22 @@ func (h *transactionHandler) Create(vaultId int, request v.CreateTransactionRequ
 		return dtos.TransactionDto{}, err
 	}
 
-	transaction = h.transactionRepository.Create(transaction)
+	h.db.Transaction(func(tx *gorm.DB) error {
+		transaction, err = h.transactionRepository.Create(transaction)
+		if err != nil {
+			h.logger.Errorf(err.Error())
+			return err
+		}
+
+		vault.Total += transaction.Value
+		err = h.vaultRepository.Save(vault)
+		if err != nil {
+			h.logger.Errorf(err.Error())
+			return err
+		}
+
+		return nil
+	})
+
 	return transaction.ParseDto(), nil
 }

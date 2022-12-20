@@ -15,7 +15,8 @@ func handleSignup(context *gin.Context) {
 		return
 	}
 
-	response, err := handlers.HandleSignup(request)
+	handler := handlers.UserHandler()
+	response, err := handler.HandleSignup(request)
 	if err != nil {
 		context.Error(err)
 		return

@@ -5,6 +5,7 @@ CREATE TABLE vaults(
     name varchar(255) NOT NULL,
     description text,
     configs json NOT NULL,
+    total float NOT NULL DEFAULT 0,
     "userId" int NOT NULL,
     "typeId" int NOT NULL,
     "createdAt" timestamp NOT NULL,

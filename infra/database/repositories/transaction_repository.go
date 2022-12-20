@@ -17,11 +17,11 @@ func TransactionRepository() interfaces.TransactionRepository {
 	}
 }
 
-func (r *transactionRepository) Create(transaction models.Transaction) models.Transaction {
+func (r *transactionRepository) Create(transaction models.Transaction) (models.Transaction, error) {
 	result := r.context.Create(&transaction)
 	if result.Error != nil {
-		panic(result.Error.Error())
+		return transaction, result.Error
 	}
 
-	return transaction
+	return transaction, nil
 }

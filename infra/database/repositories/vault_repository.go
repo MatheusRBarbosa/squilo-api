@@ -26,3 +26,7 @@ func (r *vaultRepository) GetById(id int) (models.Vault, error) {
 
 	return vault, err
 }
+
+func (r *vaultRepository) Save(vault models.Vault) error {
+	return r.context.Save(&vault).Error
+}
