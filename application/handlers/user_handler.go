@@ -5,19 +5,30 @@ import (
 	v "github.com/matheusrbarbosa/gofin/application/validators"
 	"github.com/matheusrbarbosa/gofin/domain/dtos"
 	"github.com/matheusrbarbosa/gofin/domain/exceptions"
+	i "github.com/matheusrbarbosa/gofin/domain/interfaces"
 	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
 	"gorm.io/gorm"
 )
 
-func HandleSignup(request v.SignupRequest) (dtos.UserDto, error) {
-	user := request.ParseToUser()
-	userService := services.UserService()
-	userRepository := repositories.UserRepository()
+type userHanlder struct {
+	userService    i.UserService
+	userRepository i.UserRepository
+}
 
-	_, err := userRepository.GetByEmail(user.Email)
+func UserHandler() *userHanlder {
+	return &userHanlder{
+		userService:    services.UserService(),
+		userRepository: repositories.UserRepository(),
+	}
+}
+
+func (h *userHanlder) HandleSignup(request v.SignupRequest) (dtos.UserDto, error) {
+	user := request.ParseToUser()
+
+	_, err := h.userRepository.GetByEmail(user.Email)
 	if err != nil && err == gorm.ErrRecordNotFound {
-		userService.PrepareToCreate(&user)
-		user = userRepository.Create(user)
+		h.userService.PrepareToCreate(&user)
+		user = h.userRepository.Create(user)
 		return user.ParseDto(), nil
 	} else {
 		return user.ParseDto(), exceptions.EMAIL_ALREADY_EXIST

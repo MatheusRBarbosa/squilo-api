@@ -15,7 +15,8 @@ func handleLogin(context *gin.Context) {
 		return
 	}
 
-	response, err := handlers.HandleLogin(request)
+	handler := handlers.AuthHandler()
+	response, err := handler.HandleLogin(request)
 	if err != nil {
 		context.Error(err)
 		return
