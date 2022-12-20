@@ -36,17 +36,17 @@ func ParseError(err error) []apiError {
 func parseErrorMessage(fieldError validator.FieldError) string {
 	switch fieldError.Tag() {
 	case "required":
-		return "This field is required"
+		return "Este campo é obrigatório"
 	case "email":
-		return "Invalid email"
+		return "E-mail inválido"
 	case "gt":
-		return fmt.Sprintf("This field must be greater than %s", fieldError.Param())
+		return fmt.Sprintf("Este campo deve ser maior que %s", fieldError.Param())
 	case "gte":
-		return fmt.Sprintf("This field must be greater or equal than %s", fieldError.Param())
+		return fmt.Sprintf("Este campo deve ser maior ou igual a %s", fieldError.Param())
 	case "lt":
-		return fmt.Sprintf("This field must be less than %s", fieldError.Param())
+		return fmt.Sprintf("Este campo deve ser menor que %s", fieldError.Param())
 	case "lte":
-		return fmt.Sprintf("This field must be less or equal than %s", fieldError.Param())
+		return fmt.Sprintf("Este campo deve ser menor ou igual a %s", fieldError.Param())
 	}
 
 	return fieldError.Error() // default error

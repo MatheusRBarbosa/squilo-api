@@ -17,8 +17,8 @@ func UserRepository() interfaces.UserRepository {
 	}
 }
 
-func (ur *userRepository) Create(user models.User) models.User {
-	result := ur.context.Create(&user)
+func (r *userRepository) Create(user models.User) models.User {
+	result := r.context.Create(&user)
 	if result.Error != nil {
 		panic(result.Error.Error())
 	}
@@ -26,9 +26,9 @@ func (ur *userRepository) Create(user models.User) models.User {
 	return user
 }
 
-func (ur *userRepository) GetByEmail(email string) (models.User, error) {
+func (r *userRepository) GetByEmail(email string) (models.User, error) {
 	user := models.User{}
-	err := ur.context.Where(&models.User{Email: email}).First(&user).Error
+	err := r.context.Where(&models.User{Email: email}).First(&user).Error
 	if err == gorm.ErrRecordNotFound {
 		return user, gorm.ErrRecordNotFound
 	}
@@ -36,9 +36,9 @@ func (ur *userRepository) GetByEmail(email string) (models.User, error) {
 	return user, err
 }
 
-func (ur *userRepository) GetById(id int) (models.User, error) {
+func (r *userRepository) GetById(id int) (models.User, error) {
 	user := models.User{}
-	err := ur.context.Preload("Vaults").Where(&models.User{ID: id}).First(&user).Error
+	err := r.context.Preload("Vaults").Where(&models.User{ID: id}).First(&user).Error
 	if err == gorm.ErrRecordNotFound {
 		return user, gorm.ErrRecordNotFound
 	}

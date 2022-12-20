@@ -21,10 +21,6 @@ func (r *SignupRequest) ParseToUser() models.User {
 		l.GetLogger().Panicln(err)
 	}
 
-	if err != nil {
-		l.GetLogger().Errorf(err.Error())
-	}
-
 	return models.User{
 		Name:      r.Name,
 		Email:     r.Email,

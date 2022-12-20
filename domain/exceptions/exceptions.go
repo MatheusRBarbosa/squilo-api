@@ -8,9 +8,23 @@ type GofinError struct {
 }
 
 var (
-	UNAUTHORIZED        = newError(401, "1000", "Credenciais Inválidas!", "As credenciais que você digitou são inválidas. Veja se digitou tudo corretamente e tente novamente.")
-	DEFAULT             = newError(500, "0001", "Erro interno", "Um erro interno do servidor aconteceu. Muito triste =(")
-	EMAIL_ALREADY_EXIST = newError(400, "2000", "Email já está em uso.", "Caso já possua uma conta, tente recuperar a senha.")
+	DEFAULT = newError(500, "0001", "Erro interno.", "Um erro interno do servidor aconteceu. Muito triste =(")
+
+	// 1xxx - Generic validations
+	UNAUTHORIZED = newError(401, "1001", "Credenciais Inválidas!", "As credenciais que você digitou são inválidas. Veja se digitou tudo corretamente e tente novamente.")
+
+	// 2xxx - Email
+	EMAIL_ALREADY_EXIST = newError(400, "2001", "Email já está em uso.", "Caso já possua uma conta, tente recuperar a senha.")
+
+	// 3xxx - Vault
+	VAULT_NOT_FOUND = newError(404, "3001", "Não encontrado.", "O cofre procurado não foi encontrado.")
+
+	// 4xxx - Transaction
+	TRANSACTION_NOT_FOUND  = newError(404, "4001", "Não encontrado.", "A transação procurada não foi encontrada.")
+	TRANSACTION_WRONG_TYPE = newError(400, "4002", "Transação não permitida.", "Verifique se o tipo de cofre permite essa transação.")
+
+	// 5xxx - User
+	USER_NOT_FOUND = newError(404, "5001", "Não encontrado.", "O usuário procurado não foi encontrado.")
 )
 
 func (e *GofinError) Error() string {

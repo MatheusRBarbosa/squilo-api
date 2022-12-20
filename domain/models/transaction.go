@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/matheusrbarbosa/gofin/domain/dtos"
+)
 
 type Transaction struct {
 	ID          int
@@ -13,4 +17,15 @@ type Transaction struct {
 
 	// Relations
 	Vault Vault
+}
+
+func (t *Transaction) ParseDto() dtos.TransactionDto {
+	return dtos.TransactionDto{
+		Id:          t.ID,
+		VaultId:     t.VaultId,
+		Date:        t.Date,
+		Observation: t.Observation,
+		CreatedAt:   t.CreatedAt,
+		UpdatedAt:   t.UpdatedAt,
+	}
 }
