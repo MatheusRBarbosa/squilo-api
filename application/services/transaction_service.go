@@ -1,8 +1,6 @@
 package services
 
 import (
-	"time"
-
 	"github.com/matheusrbarbosa/gofin/domain/exceptions"
 	"github.com/matheusrbarbosa/gofin/domain/interfaces"
 	"github.com/matheusrbarbosa/gofin/domain/models"
@@ -20,9 +18,6 @@ func (s *transactionService) PrepareTransaction(v models.Vault, t *models.Transa
 	if (negativeVaule && !v.Type.AllowNegativeTransactions) || (!negativeVaule && !v.Type.AllowPositiveTransactions) {
 		return exceptions.TRANSACTION_WRONG_TYPE
 	}
-
-	t.CreatedAt = time.Now()
-	t.UpdatedAt = time.Now()
 
 	return nil
 }

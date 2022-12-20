@@ -25,3 +25,17 @@ func (r *transactionRepository) Create(transaction models.Transaction) (models.T
 
 	return transaction, nil
 }
+
+func (r *transactionRepository) GetById(id int) (models.Transaction, error) {
+	transaction := models.Transaction{}
+	err := r.context.Preload("Vault").First(&transaction, id).Error
+	if err == gorm.ErrRecordNotFound {
+		return transaction, gorm.ErrRecordNotFound
+	}
+
+	return transaction, err
+}
+
+func (r *transactionRepository) Delete(id int) error {
+	return r.context.Delete(&models.Transaction{}, id).Error
+}

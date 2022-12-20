@@ -62,3 +62,41 @@ func (h *transactionHandler) Create(vaultId int, request v.CreateTransactionRequ
 
 	return transaction.ParseDto(), nil
 }
+
+func (h *transactionHandler) Delete(vaultId, transactionId int) (dtos.TransactionDto, error) {
+	vault, err := h.vaultRepository.GetById(vaultId)
+	if err != nil {
+		h.logger.Errorf(err.Error())
+		return dtos.TransactionDto{}, exceptions.VAULT_NOT_FOUND
+	}
+
+	transaction, err := h.transactionRepository.GetById(transactionId)
+	if err != nil {
+		h.logger.Errorf(err.Error())
+		return dtos.TransactionDto{}, exceptions.TRANSACTION_NOT_FOUND
+	}
+
+	// deveria transaformar essa validacao em middleware?
+	if transaction.Vault.ID != vault.ID {
+		return dtos.TransactionDto{}, exceptions.TRANSACTION_NOT_BELONGS_TO_VAULT
+	}
+
+	h.db.Transaction(func(tx *gorm.DB) error {
+		vault.Total -= transaction.Value
+		err = h.vaultRepository.Save(vault)
+		if err != nil {
+			h.logger.Errorf(err.Error())
+			return err
+		}
+
+		err = h.transactionRepository.Delete(transactionId)
+		if err != nil {
+			h.logger.Errorf(err.Error())
+			return err
+		}
+
+		return nil
+	})
+
+	return transaction.ParseDto(), nil
+}

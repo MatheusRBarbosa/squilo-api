@@ -7,5 +7,5 @@ import (
 
 func RegisterTransactionRoutes(v1 *gin.RouterGroup) {
 	v1.POST("vault/:vaultId/transaction", m.ValidateJWT(), handleCreateTransaction)
-	// v1.DELETE("vault/:vaultId/transaction/:id", m.ValidateJWT(), handleCreateTransaction)
+	v1.DELETE("vault/:vaultId/transaction/:id", m.ValidateJWT(), handleDeleteTransaction)
 }

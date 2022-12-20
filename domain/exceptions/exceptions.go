@@ -20,8 +20,9 @@ var (
 	VAULT_NOT_FOUND = newError(404, "3001", "Não encontrado.", "O cofre procurado não foi encontrado.")
 
 	// 4xxx - Transaction
-	TRANSACTION_NOT_FOUND  = newError(404, "4001", "Não encontrado.", "A transação procurada não foi encontrada.")
-	TRANSACTION_WRONG_TYPE = newError(400, "4002", "Transação não permitida.", "Verifique se o tipo de cofre permite essa transação.")
+	TRANSACTION_NOT_FOUND            = newError(404, "4001", "Não encontrado.", "A transação procurada não foi encontrada.")
+	TRANSACTION_WRONG_TYPE           = newError(400, "4002", "Transação não permitida.", "Verifique se o tipo de cofre permite essa transação.")
+	TRANSACTION_NOT_BELONGS_TO_VAULT = newError(400, "4003", "Transação não pertence a esse cofre.", "Verifique se essa transação realmente pertence a esse cofre.")
 
 	// 5xxx - User
 	USER_NOT_FOUND = newError(404, "5001", "Não encontrado.", "O usuário procurado não foi encontrado.")

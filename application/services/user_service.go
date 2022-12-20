@@ -1,8 +1,6 @@
 package services
 
 import (
-	"time"
-
 	vtypes "github.com/matheusrbarbosa/gofin/domain/enums/vault_types"
 	"github.com/matheusrbarbosa/gofin/domain/interfaces"
 	"github.com/matheusrbarbosa/gofin/domain/models"
@@ -20,8 +18,6 @@ func (s *userService) PrepareToCreate(user *models.User) {
 		Description: "Cofrinho inicial",
 		Configs:     "{}",
 		TypeId:      vtypes.General,
-		CreatedAt:   time.Now(),
-		UpdatedAt:   time.Now(),
 	}
 
 	user.Vaults = append(user.Vaults, defaultVault)

@@ -33,3 +33,28 @@ func handleCreateTransaction(context *gin.Context) {
 
 	context.IndentedJSON(http.StatusCreated, response)
 }
+
+func handleDeleteTransaction(context *gin.Context) {
+	vaultId, err := strconv.Atoi(context.Param("vaultId"))
+	if err != nil {
+		l.GetLogger().Error(err)
+		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
+		return
+	}
+
+	transactionId, err := strconv.Atoi(context.Param("id"))
+	if err != nil {
+		l.GetLogger().Error(err)
+		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
+		return
+	}
+
+	handler := handlers.TransactionHandler()
+	response, err := handler.Delete(vaultId, transactionId)
+	if err != nil {
+		context.Error(err)
+		return
+	}
+
+	context.IndentedJSON(http.StatusOK, response)
+}
