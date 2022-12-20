@@ -36,3 +36,14 @@ func (user *User) ParseDto() dtos.UserDto {
 		Email: user.Email,
 	}
 }
+
+func (user *User) BeforeCreate(tx *gorm.DB) error {
+	user.CreatedAt = time.Now()
+	user.UpdatedAt = time.Now()
+	return nil
+}
+
+func (user *User) BeforeUpdate(tx *gorm.DB) error {
+	user.UpdatedAt = time.Now()
+	return nil
+}

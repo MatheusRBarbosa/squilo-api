@@ -19,3 +19,14 @@ type VaultType struct {
 	// Relations
 	// Vaults []Vault
 }
+
+func (vt *VaultType) BeforeCreate(tx *gorm.DB) error {
+	vt.CreatedAt = time.Now()
+	vt.UpdatedAt = time.Now()
+	return nil
+}
+
+func (vt *VaultType) BeforeUpdate(tx *gorm.DB) error {
+	vt.UpdatedAt = time.Now()
+	return nil
+}

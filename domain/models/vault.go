@@ -23,3 +23,14 @@ type Vault struct {
 	Type         VaultType
 	Transactions []Transaction
 }
+
+func (vault *Vault) BeforeCreate(tx *gorm.DB) error {
+	vault.CreatedAt = time.Now()
+	vault.UpdatedAt = time.Now()
+	return nil
+}
+
+func (vault *Vault) BeforeUpdate(tx *gorm.DB) error {
+	vault.UpdatedAt = time.Now()
+	return nil
+}

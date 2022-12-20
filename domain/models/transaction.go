@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/matheusrbarbosa/gofin/domain/dtos"
+	"gorm.io/gorm"
 )
 
 type Transaction struct {
@@ -28,4 +29,15 @@ func (t *Transaction) ParseDto() dtos.TransactionDto {
 		CreatedAt:   t.CreatedAt,
 		UpdatedAt:   t.UpdatedAt,
 	}
+}
+
+func (tr *Transaction) BeforeCreate(tx *gorm.DB) error {
+	tr.CreatedAt = time.Now()
+	tr.UpdatedAt = time.Now()
+	return nil
+}
+
+func (tr *Transaction) BeforeUpdate(tx *gorm.DB) error {
+	tr.UpdatedAt = time.Now()
+	return nil
 }
