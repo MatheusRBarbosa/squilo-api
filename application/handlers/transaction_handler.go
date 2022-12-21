@@ -76,7 +76,6 @@ func (h *transactionHandler) Delete(vaultId, transactionId int) (dtos.Transactio
 		return dtos.TransactionDto{}, exceptions.TRANSACTION_NOT_FOUND
 	}
 
-	// deveria transaformar essa validacao em middleware?
 	if transaction.Vault.ID != vault.ID {
 		return dtos.TransactionDto{}, exceptions.TRANSACTION_NOT_BELONGS_TO_VAULT
 	}

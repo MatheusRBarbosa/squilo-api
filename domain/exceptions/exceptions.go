@@ -17,7 +17,8 @@ var (
 	EMAIL_ALREADY_EXIST = newError(400, "2001", "Email já está em uso.", "Caso já possua uma conta, tente recuperar a senha.")
 
 	// 3xxx - Vault
-	VAULT_NOT_FOUND = newError(404, "3001", "Não encontrado.", "O cofre procurado não foi encontrado.")
+	VAULT_NOT_FOUND        = newError(404, "3001", "Não encontrado.", "O cofre procurado não foi encontrado.")
+	VAULT_NOT_USER_RELATED = newError(400, "3002", "Cofre não pertence a esse usuário.", "Cofre não pertence a esse usuário.")
 
 	// 4xxx - Transaction
 	TRANSACTION_NOT_FOUND            = newError(404, "4001", "Não encontrado.", "A transação procurada não foi encontrada.")

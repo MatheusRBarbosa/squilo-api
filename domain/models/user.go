@@ -29,6 +29,16 @@ type User struct {
 	Vaults []Vault
 }
 
+func (user *User) Vault(id int) *Vault {
+	for _, v := range user.Vaults {
+		if v.ID == id {
+			return &v
+		}
+	}
+
+	return nil
+}
+
 func (user *User) ParseDto() dtos.UserDto {
 	return dtos.UserDto{
 		Id:    user.ID,

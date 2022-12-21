@@ -21,7 +21,8 @@ func ValidateJWT() gin.HandlerFunc {
 
 		jwt := strings.Trim(header[len(SCHEMA):], " ")
 
-		token, _ := services.AuthService().Validate(jwt)
+		authServuce := services.AuthService()
+		token, _ := authServuce.Validate(jwt)
 		if token.Valid {
 			claims := token.Claims.(*models.UserCustomClaims)
 			user, err := repositories.UserRepository().GetById(claims.ID)
@@ -30,7 +31,7 @@ func ValidateJWT() gin.HandlerFunc {
 				context.AbortWithStatusJSON(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
 			}
 
-			services.AuthService().SetAuthUser(user)
+			authServuce.SetAuthUser(user)
 		} else {
 			context.AbortWithStatusJSON(exceptions.UNAUTHORIZED.Code, exceptions.UNAUTHORIZED)
 		}
