@@ -14,6 +14,7 @@ v1 Tech:
 - [ ] Configurar sentry
 
 v2 Features:
+- [ ] Barra de busca de transacoes
 - [ ] Apagar conta
 - [ ] Recuperar senha
 - [ ] Email de boas vindas

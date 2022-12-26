@@ -8,6 +8,7 @@ import (
 	"github.com/matheusrbarbosa/gofin/domain/exceptions"
 	i "github.com/matheusrbarbosa/gofin/domain/interfaces"
 	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/gofin/domain/utils"
 	"github.com/matheusrbarbosa/gofin/infra/database"
 	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
 	"gorm.io/gorm"
@@ -135,19 +136,20 @@ func (h *transactionHandler) Get(vaultId, transactionId int) (dtos.TransactionDt
 	return transaction.ParseDto(), nil
 }
 
-func (h *transactionHandler) GetAll(vaultId int) ([]dtos.TransactionDto, error) {
-	vault, err := h.vaultRepository.GetByIdWithIncludes(vaultId)
-	transactions := []dtos.TransactionDto{}
+func (h *transactionHandler) GetAll(vaultId int, pagination utils.Pagination) ([]dtos.TransactionDto, error) {
+	response := []dtos.TransactionDto{}
+
+	transactions, err := h.transactionRepository.GetByVaultId(vaultId, pagination)
 	if err != nil {
-		return transactions, exceptions.VAULT_NOT_FOUND
+		return response, exceptions.VAULT_NOT_FOUND
 	}
 
-	for i := 0; i < len(vault.Transactions); i++ {
-		transaction := vault.Transactions[i].ParseDto()
-		transactions = append(transactions, transaction)
+	for i := 0; i < len(transactions); i++ {
+		transaction := transactions[i].ParseDto()
+		response = append(response, transaction)
 	}
 
-	return transactions, nil
+	return response, nil
 }
 
 func (h *transactionHandler) getVaultAndTransaction(vaultId, transactionId int) (models.Vault, models.Transaction, error) {

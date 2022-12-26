@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	p "github.com/matheusrbarbosa/gofin/api/v1/utils/pagination"
 	"github.com/matheusrbarbosa/gofin/application/handlers"
 	"github.com/matheusrbarbosa/gofin/application/validators"
 	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
@@ -105,7 +106,7 @@ func handleGetAllTransactions(ctx *gin.Context) {
 	}
 
 	handler := handlers.TransactionHandler()
-	response, err := handler.GetAll(vaultId)
+	response, err := handler.GetAll(vaultId, p.GetPagination(ctx))
 	if err != nil {
 		ctx.Error(err)
 		return

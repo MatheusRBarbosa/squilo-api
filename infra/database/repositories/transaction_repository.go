@@ -3,6 +3,7 @@ package repositories
 import (
 	"github.com/matheusrbarbosa/gofin/domain/interfaces"
 	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/gofin/domain/utils"
 	"github.com/matheusrbarbosa/gofin/infra/database"
 	"gorm.io/gorm"
 )
@@ -48,4 +49,14 @@ func (r *transactionRepository) Update(transaction *models.Transaction, newTrans
 	}).Error
 
 	return err
+}
+
+func (r *transactionRepository) GetByVaultId(id int, pagination utils.Pagination) ([]models.Transaction, error) {
+	transactions := []models.Transaction{}
+	result := r.context.Where(&models.Transaction{VaultId: id}).Offset(pagination.Offset).Limit(pagination.Limit).Find(&transactions)
+	if result.Error != nil {
+		return []models.Transaction{}, result.Error
+	}
+
+	return transactions, nil
 }
