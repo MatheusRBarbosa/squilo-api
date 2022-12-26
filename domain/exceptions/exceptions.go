@@ -11,7 +11,8 @@ var (
 	DEFAULT = newError(500, "0001", "Erro interno.", "Um erro interno do servidor aconteceu. Muito triste =(")
 
 	// 1xxx - Generic validations
-	UNAUTHORIZED = newError(401, "1001", "Credenciais Inválidas!", "As credenciais que você digitou são inválidas. Veja se digitou tudo corretamente e tente novamente.")
+	UNAUTHORIZED       = newError(401, "1001", "Credenciais Inválidas!", "As credenciais que você digitou são inválidas. Veja se digitou tudo corretamente e tente novamente.")
+	URL_PARAMS_MISSING = newError(500, "1002", "Parametros inválidos!", "Um ou mais parametros de URL estão faltando.")
 
 	// 2xxx - Email
 	EMAIL_ALREADY_EXIST = newError(400, "2001", "Email já está em uso.", "Caso já possua uma conta, tente recuperar a senha.")

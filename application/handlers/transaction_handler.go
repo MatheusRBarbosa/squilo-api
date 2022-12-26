@@ -125,6 +125,31 @@ func (h *transactionHandler) Update(vaultId int, transactionId int, request v.Cr
 	return transaction.ParseDto(), nil
 }
 
+func (h *transactionHandler) Get(vaultId, transactionId int) (dtos.TransactionDto, error) {
+	_, transaction, err := h.getVaultAndTransaction(vaultId, transactionId)
+	if err != nil {
+		h.logger.Errorf(err.Error())
+		return dtos.TransactionDto{}, err
+	}
+
+	return transaction.ParseDto(), nil
+}
+
+func (h *transactionHandler) GetAll(vaultId int) ([]dtos.TransactionDto, error) {
+	vault, err := h.vaultRepository.GetByIdWithIncludes(vaultId)
+	transactions := []dtos.TransactionDto{}
+	if err != nil {
+		return transactions, exceptions.VAULT_NOT_FOUND
+	}
+
+	for i := 0; i < len(vault.Transactions); i++ {
+		transaction := vault.Transactions[i].ParseDto()
+		transactions = append(transactions, transaction)
+	}
+
+	return transactions, nil
+}
+
 func (h *transactionHandler) getVaultAndTransaction(vaultId, transactionId int) (models.Vault, models.Transaction, error) {
 	vault, err := h.vaultRepository.GetById(vaultId)
 	if err != nil {

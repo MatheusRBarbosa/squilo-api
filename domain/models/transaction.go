@@ -24,6 +24,7 @@ func (t *Transaction) ParseDto() dtos.TransactionDto {
 	return dtos.TransactionDto{
 		Id:          t.ID,
 		VaultId:     t.VaultId,
+		Value:       t.Value,
 		Date:        t.Date,
 		Observation: t.Observation,
 		CreatedAt:   t.CreatedAt,
