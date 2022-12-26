@@ -1,9 +1,12 @@
 package interfaces
 
-import "github.com/matheusrbarbosa/gofin/domain/models"
+import (
+	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/gofin/domain/utils"
+)
 
 type VaultRepository interface {
-	// Create(vault models.Vault) models.Vault
+	GetByUserId(int, utils.Pagination) ([]models.Vault, error)
 	GetById(id int) (models.Vault, error)
 	GetByIdWithIncludes(id int) (models.Vault, error)
 	Save(models.Vault) error

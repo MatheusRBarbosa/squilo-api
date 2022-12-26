@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/matheusrbarbosa/gofin/domain/dtos"
 	"gorm.io/gorm"
 )
 
@@ -22,6 +23,22 @@ type Vault struct {
 	User         User
 	Type         VaultType
 	Transactions []Transaction
+}
+
+func (v *Vault) ParseDto() dtos.VaultDto {
+	return dtos.VaultDto{
+		Id:          v.ID,
+		Name:        v.Name,
+		Description: v.Description,
+		Total:       v.Total,
+		TypeId:      v.TypeId,
+		CreatedAt:   v.CreatedAt,
+		UpdatedAt:   v.UpdatedAt,
+		Type: dtos.IdName{
+			Id:   v.Type.ID,
+			Name: v.Type.Name,
+		},
+	}
 }
 
 func (vault *Vault) BeforeCreate(tx *gorm.DB) error {

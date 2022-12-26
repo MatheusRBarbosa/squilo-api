@@ -6,6 +6,7 @@ import (
 	"github.com/matheusrbarbosa/gofin/api/v1/transaction"
 	"github.com/matheusrbarbosa/gofin/api/v1/user"
 	"github.com/matheusrbarbosa/gofin/api/v1/utils"
+	"github.com/matheusrbarbosa/gofin/api/v1/vault"
 )
 
 func ApiRouter(server *gin.Engine) {
@@ -16,4 +17,5 @@ func ApiRouter(server *gin.Engine) {
 	utils.RegisterUtilsRoutes(v1)
 	user.RegisterUserRoutes(v1)
 	transaction.RegisterTransactionRoutes(v1)
+	vault.RegisterVaultRoutes(v1)
 }
