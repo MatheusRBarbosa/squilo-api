@@ -39,3 +39,13 @@ func (r *transactionRepository) GetById(id int) (models.Transaction, error) {
 func (r *transactionRepository) Delete(id int) error {
 	return r.context.Delete(&models.Transaction{}, id).Error
 }
+
+func (r *transactionRepository) Update(transaction *models.Transaction, newTransaction models.Transaction) error {
+	err := r.context.Model(&transaction).Updates(models.Transaction{
+		Value:       newTransaction.Value,
+		Date:        newTransaction.Date,
+		Observation: newTransaction.Observation,
+	}).Error
+
+	return err
+}

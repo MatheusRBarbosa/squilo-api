@@ -10,51 +10,82 @@ import (
 	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
 )
 
-func handleCreateTransaction(context *gin.Context) {
+func handleCreateTransaction(ctx *gin.Context) {
 	var request validators.CreateTransactionRequest
-	if err := context.ShouldBindJSON(&request); err != nil {
-		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": validators.ParseError(err)})
+	if err := ctx.ShouldBindJSON(&request); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": validators.ParseError(err)})
 		return
 	}
 
-	vaultId, err := strconv.Atoi(context.Param("vaultId"))
+	vaultId, err := strconv.Atoi(ctx.Param("vaultId"))
 	if err != nil {
 		l.GetLogger().Error(err)
-		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
 		return
 	}
 
 	handler := handlers.TransactionHandler()
 	response, err := handler.Create(vaultId, request)
 	if err != nil {
-		context.Error(err)
+		ctx.Error(err)
 		return
 	}
 
-	context.IndentedJSON(http.StatusCreated, response)
+	ctx.IndentedJSON(http.StatusCreated, response)
 }
 
-func handleDeleteTransaction(context *gin.Context) {
-	vaultId, err := strconv.Atoi(context.Param("vaultId"))
+func handleDeleteTransaction(ctx *gin.Context) {
+	vaultId, err := strconv.Atoi(ctx.Param("vaultId"))
 	if err != nil {
 		l.GetLogger().Error(err)
-		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
 		return
 	}
 
-	transactionId, err := strconv.Atoi(context.Param("id"))
+	transactionId, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		l.GetLogger().Error(err)
-		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
 		return
 	}
 
 	handler := handlers.TransactionHandler()
 	response, err := handler.Delete(vaultId, transactionId)
 	if err != nil {
-		context.Error(err)
+		ctx.Error(err)
 		return
 	}
 
-	context.IndentedJSON(http.StatusOK, response)
+	ctx.IndentedJSON(http.StatusOK, response)
+}
+
+func handleUpdateTransaction(ctx *gin.Context) {
+	var request validators.CreateTransactionRequest
+	if err := ctx.ShouldBindJSON(&request); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": validators.ParseError(err)})
+		return
+	}
+
+	vaultId, err := strconv.Atoi(ctx.Param("vaultId"))
+	if err != nil {
+		l.GetLogger().Error(err)
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
+		return
+	}
+
+	transactionId, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		l.GetLogger().Error(err)
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"errors": "Invalid URL param"})
+		return
+	}
+
+	handler := handlers.TransactionHandler()
+	response, err := handler.Update(vaultId, transactionId, request)
+	if err != nil {
+		ctx.Error(err)
+		return
+	}
+
+	ctx.IndentedJSON(http.StatusOK, response)
 }

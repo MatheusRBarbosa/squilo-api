@@ -7,6 +7,7 @@ import (
 	"github.com/matheusrbarbosa/gofin/domain/dtos"
 	"github.com/matheusrbarbosa/gofin/domain/exceptions"
 	i "github.com/matheusrbarbosa/gofin/domain/interfaces"
+	"github.com/matheusrbarbosa/gofin/domain/models"
 	"github.com/matheusrbarbosa/gofin/infra/database"
 	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
 	"gorm.io/gorm"
@@ -64,20 +65,10 @@ func (h *transactionHandler) Create(vaultId int, request v.CreateTransactionRequ
 }
 
 func (h *transactionHandler) Delete(vaultId, transactionId int) (dtos.TransactionDto, error) {
-	vault, err := h.vaultRepository.GetById(vaultId)
+	vault, transaction, err := h.getVaultAndTransaction(vaultId, transactionId)
 	if err != nil {
 		h.logger.Errorf(err.Error())
-		return dtos.TransactionDto{}, exceptions.VAULT_NOT_FOUND
-	}
-
-	transaction, err := h.transactionRepository.GetById(transactionId)
-	if err != nil {
-		h.logger.Errorf(err.Error())
-		return dtos.TransactionDto{}, exceptions.TRANSACTION_NOT_FOUND
-	}
-
-	if transaction.Vault.ID != vault.ID {
-		return dtos.TransactionDto{}, exceptions.TRANSACTION_NOT_BELONGS_TO_VAULT
+		return dtos.TransactionDto{}, err
 	}
 
 	h.db.Transaction(func(tx *gorm.DB) error {
@@ -98,4 +89,56 @@ func (h *transactionHandler) Delete(vaultId, transactionId int) (dtos.Transactio
 	})
 
 	return transaction.ParseDto(), nil
+}
+
+func (h *transactionHandler) Update(vaultId int, transactionId int, request v.CreateTransactionRequest) (dtos.TransactionDto, error) {
+	vault, transaction, err := h.getVaultAndTransaction(vaultId, transactionId)
+	if err != nil {
+		h.logger.Errorf(err.Error())
+		return dtos.TransactionDto{}, err
+	}
+
+	newTransaction := request.ParseToTransaction(vaultId)
+	if err = h.transactionService.PrepareTransaction(vault, &newTransaction); err != nil {
+		h.logger.Errorf(err.Error())
+		return dtos.TransactionDto{}, err
+	}
+
+	h.db.Transaction(func(tx *gorm.DB) error {
+		vault.Total -= transaction.Value
+		vault.Total += newTransaction.Value
+		err = h.vaultRepository.Save(vault)
+		if err != nil {
+			h.logger.Errorf(err.Error())
+			return err
+		}
+
+		err = h.transactionRepository.Update(&transaction, newTransaction)
+		if err != nil {
+			h.logger.Errorf(err.Error())
+			return err
+		}
+
+		return nil
+	})
+
+	return transaction.ParseDto(), nil
+}
+
+func (h *transactionHandler) getVaultAndTransaction(vaultId, transactionId int) (models.Vault, models.Transaction, error) {
+	vault, err := h.vaultRepository.GetById(vaultId)
+	if err != nil {
+		return models.Vault{}, models.Transaction{}, exceptions.VAULT_NOT_FOUND
+	}
+
+	transaction, err := h.transactionRepository.GetById(transactionId)
+	if err != nil {
+		return models.Vault{}, models.Transaction{}, exceptions.TRANSACTION_NOT_FOUND
+	}
+
+	if transaction.Vault.ID != vault.ID {
+		return models.Vault{}, models.Transaction{}, exceptions.TRANSACTION_NOT_BELONGS_TO_VAULT
+	}
+
+	return vault, transaction, err
 }
