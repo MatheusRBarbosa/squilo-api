@@ -4,7 +4,7 @@ v1 Features:
 - [X] Cadastro
     - Ao realizar o cadastro, um cofre deve ser criado.
 - [X] Login
-- [ ] CRUD gastos
+- [X] CRUD gastos
     - O usuario pode cadastrar incomes/outcomes para um cofre.
     - Paginacao na listagem de transactions e vaults
 
