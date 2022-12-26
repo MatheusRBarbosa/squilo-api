@@ -6,6 +6,7 @@ v1 Features:
 - [X] Login
 - [ ] CRUD gastos
     - O usuario pode cadastrar incomes/outcomes para um cofre.
+    - Paginacao na listagem de transactions e vaults
 
 v1 Tech:
 - [ ] Versionamento de API
