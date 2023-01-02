@@ -2,7 +2,7 @@ package interfaces
 
 import (
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/squilo/domain/models"
 )
 
 type AuthService interface {

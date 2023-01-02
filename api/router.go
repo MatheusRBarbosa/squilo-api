@@ -2,11 +2,11 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/api/v1/auth"
-	"github.com/matheusrbarbosa/gofin/api/v1/transaction"
-	"github.com/matheusrbarbosa/gofin/api/v1/user"
-	"github.com/matheusrbarbosa/gofin/api/v1/utils"
-	"github.com/matheusrbarbosa/gofin/api/v1/vault"
+	"github.com/matheusrbarbosa/squilo/api/v1/auth"
+	"github.com/matheusrbarbosa/squilo/api/v1/transaction"
+	"github.com/matheusrbarbosa/squilo/api/v1/user"
+	"github.com/matheusrbarbosa/squilo/api/v1/utils"
+	"github.com/matheusrbarbosa/squilo/api/v1/vault"
 )
 
 func ApiRouter(server *gin.Engine) {

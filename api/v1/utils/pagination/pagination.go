@@ -4,7 +4,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/domain/utils"
+	"github.com/matheusrbarbosa/squilo/domain/utils"
 )
 
 func GetPagination(ctx *gin.Context) utils.Pagination {

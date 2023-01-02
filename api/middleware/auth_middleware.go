@@ -4,10 +4,10 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/application/services"
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
-	"github.com/matheusrbarbosa/gofin/domain/models"
-	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
+	"github.com/matheusrbarbosa/squilo/application/services"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
+	"github.com/matheusrbarbosa/squilo/domain/models"
+	"github.com/matheusrbarbosa/squilo/infra/database/repositories"
 )
 
 func ValidateJWT() gin.HandlerFunc {

@@ -1,9 +1,9 @@
 package services
 
 import (
-	vtypes "github.com/matheusrbarbosa/gofin/domain/enums/vault_types"
-	"github.com/matheusrbarbosa/gofin/domain/interfaces"
-	"github.com/matheusrbarbosa/gofin/domain/models"
+	vtypes "github.com/matheusrbarbosa/squilo/domain/enums/vault_types"
+	"github.com/matheusrbarbosa/squilo/domain/interfaces"
+	"github.com/matheusrbarbosa/squilo/domain/models"
 )
 
 type userService struct{}

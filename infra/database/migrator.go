@@ -8,7 +8,7 @@ import (
 	"os"
 
 	_ "github.com/lib/pq"
-	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
+	crossCutting "github.com/matheusrbarbosa/squilo/crosscutting"
 	"github.com/pressly/goose/v3"
 )
 

@@ -2,11 +2,11 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/application/services"
-	"github.com/matheusrbarbosa/gofin/application/validators"
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
-	i "github.com/matheusrbarbosa/gofin/domain/interfaces"
-	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
+	"github.com/matheusrbarbosa/squilo/application/services"
+	"github.com/matheusrbarbosa/squilo/application/validators"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
+	i "github.com/matheusrbarbosa/squilo/domain/interfaces"
+	"github.com/matheusrbarbosa/squilo/infra/database/repositories"
 	"golang.org/x/crypto/bcrypt"
 )
 

@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/application/handlers"
-	"github.com/matheusrbarbosa/gofin/application/validators"
+	"github.com/matheusrbarbosa/squilo/application/handlers"
+	"github.com/matheusrbarbosa/squilo/application/validators"
 )
 
 func handleLogin(context *gin.Context) {

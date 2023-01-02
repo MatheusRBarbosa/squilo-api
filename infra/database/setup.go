@@ -1,7 +1,7 @@
 package database
 
 import (
-	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
+	crossCutting "github.com/matheusrbarbosa/squilo/crosscutting"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

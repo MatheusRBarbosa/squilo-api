@@ -3,8 +3,8 @@ package validators
 import (
 	"time"
 
-	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
-	"github.com/matheusrbarbosa/gofin/domain/models"
+	l "github.com/matheusrbarbosa/squilo/crosscutting/logger"
+	"github.com/matheusrbarbosa/squilo/domain/models"
 	"golang.org/x/crypto/bcrypt"
 )
 

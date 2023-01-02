@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/api/middleware"
-	"github.com/matheusrbarbosa/gofin/infra/database"
+	"github.com/matheusrbarbosa/squilo/api/middleware"
+	"github.com/matheusrbarbosa/squilo/infra/database"
 )
 
 func StartHttpServer() {

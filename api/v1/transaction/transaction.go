@@ -5,11 +5,11 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	p "github.com/matheusrbarbosa/gofin/api/v1/utils/pagination"
-	"github.com/matheusrbarbosa/gofin/application/handlers"
-	"github.com/matheusrbarbosa/gofin/application/validators"
-	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
+	p "github.com/matheusrbarbosa/squilo/api/v1/utils/pagination"
+	"github.com/matheusrbarbosa/squilo/application/handlers"
+	"github.com/matheusrbarbosa/squilo/application/validators"
+	l "github.com/matheusrbarbosa/squilo/crosscutting/logger"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
 )
 
 func handleCreateTransaction(ctx *gin.Context) {

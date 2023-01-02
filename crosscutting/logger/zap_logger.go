@@ -3,7 +3,7 @@ package logger
 import (
 	"log"
 
-	cc "github.com/matheusrbarbosa/gofin/crosscutting"
+	cc "github.com/matheusrbarbosa/squilo/crosscutting"
 	"go.uber.org/zap"
 )
 

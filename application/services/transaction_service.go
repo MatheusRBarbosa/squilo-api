@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
-	"github.com/matheusrbarbosa/gofin/domain/interfaces"
-	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
+	"github.com/matheusrbarbosa/squilo/domain/interfaces"
+	"github.com/matheusrbarbosa/squilo/domain/models"
 )
 
 type transactionService struct{}

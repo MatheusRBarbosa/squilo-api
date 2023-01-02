@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	server "github.com/matheusrbarbosa/gofin/api"
+	server "github.com/matheusrbarbosa/squilo/api"
 	"github.com/spf13/cobra"
 )
 

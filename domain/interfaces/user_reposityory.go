@@ -1,6 +1,6 @@
 package interfaces
 
-import "github.com/matheusrbarbosa/gofin/domain/models"
+import "github.com/matheusrbarbosa/squilo/domain/models"
 
 type UserRepository interface {
 	Create(user models.User) models.User

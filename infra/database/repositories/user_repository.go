@@ -1,9 +1,9 @@
 package repositories
 
 import (
-	"github.com/matheusrbarbosa/gofin/domain/interfaces"
-	"github.com/matheusrbarbosa/gofin/domain/models"
-	"github.com/matheusrbarbosa/gofin/infra/database"
+	"github.com/matheusrbarbosa/squilo/domain/interfaces"
+	"github.com/matheusrbarbosa/squilo/domain/models"
+	"github.com/matheusrbarbosa/squilo/infra/database"
 	"gorm.io/gorm"
 )
 

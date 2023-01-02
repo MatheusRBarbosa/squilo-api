@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
 )
 
 func ErrorHandler() gin.HandlerFunc {
@@ -12,7 +12,7 @@ func ErrorHandler() gin.HandlerFunc {
 		c.Next()
 		for _, e := range c.Errors {
 			err := e.Err
-			if gErr, ok := err.(*exceptions.GofinError); ok {
+			if gErr, ok := err.(*exceptions.SquiloError); ok {
 				c.JSON(gErr.Code, gin.H{
 					"code":        gErr.Code,
 					"message":     gErr.Message,

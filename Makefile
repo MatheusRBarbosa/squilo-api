@@ -1,5 +1,5 @@
 deps-up:
-	docker compose -p gofin up -d
+	docker compose -p squilo up -d
 
 deps-down:
 	docker compose down

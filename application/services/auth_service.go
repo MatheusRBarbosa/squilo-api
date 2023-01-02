@@ -5,12 +5,12 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
-	crossCutting "github.com/matheusrbarbosa/gofin/crosscutting"
-	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
-	"github.com/matheusrbarbosa/gofin/domain/interfaces"
-	"github.com/matheusrbarbosa/gofin/domain/models"
-	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
+	crossCutting "github.com/matheusrbarbosa/squilo/crosscutting"
+	l "github.com/matheusrbarbosa/squilo/crosscutting/logger"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
+	"github.com/matheusrbarbosa/squilo/domain/interfaces"
+	"github.com/matheusrbarbosa/squilo/domain/models"
+	"github.com/matheusrbarbosa/squilo/infra/database/repositories"
 )
 
 var authedUser *models.User
@@ -23,7 +23,7 @@ type authService struct {
 func AuthService() interfaces.AuthService {
 	return &authService{
 		secret: crossCutting.GetEnv("JWT_SECRET"),
-		issure: "gofin",
+		issure: "squilo",
 	}
 }
 

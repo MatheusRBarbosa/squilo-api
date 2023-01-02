@@ -5,9 +5,9 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/matheusrbarbosa/gofin/application/services"
-	l "github.com/matheusrbarbosa/gofin/crosscutting/logger"
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
+	"github.com/matheusrbarbosa/squilo/application/services"
+	l "github.com/matheusrbarbosa/squilo/crosscutting/logger"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
 )
 
 func VaultRelated() gin.HandlerFunc {

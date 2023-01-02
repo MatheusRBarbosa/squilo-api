@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/matheusrbarbosa/gofin/domain/dtos"
+	"github.com/matheusrbarbosa/squilo/domain/dtos"
 	"gorm.io/gorm"
 )
 

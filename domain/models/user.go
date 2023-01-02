@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/matheusrbarbosa/gofin/domain/dtos"
+	"github.com/matheusrbarbosa/squilo/domain/dtos"
 	"gorm.io/gorm"
 )
 

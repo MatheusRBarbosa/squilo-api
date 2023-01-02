@@ -1,10 +1,10 @@
 package repositories
 
 import (
-	"github.com/matheusrbarbosa/gofin/domain/interfaces"
-	m "github.com/matheusrbarbosa/gofin/domain/models"
-	"github.com/matheusrbarbosa/gofin/domain/utils"
-	"github.com/matheusrbarbosa/gofin/infra/database"
+	"github.com/matheusrbarbosa/squilo/domain/interfaces"
+	m "github.com/matheusrbarbosa/squilo/domain/models"
+	"github.com/matheusrbarbosa/squilo/domain/utils"
+	"github.com/matheusrbarbosa/squilo/infra/database"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

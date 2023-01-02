@@ -1,8 +1,8 @@
 package interfaces
 
 import (
-	"github.com/matheusrbarbosa/gofin/domain/models"
-	"github.com/matheusrbarbosa/gofin/domain/utils"
+	"github.com/matheusrbarbosa/squilo/domain/models"
+	"github.com/matheusrbarbosa/squilo/domain/utils"
 )
 
 type TransactionRepository interface {

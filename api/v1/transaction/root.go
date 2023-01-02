@@ -2,7 +2,7 @@ package transaction
 
 import (
 	"github.com/gin-gonic/gin"
-	m "github.com/matheusrbarbosa/gofin/api/middleware"
+	m "github.com/matheusrbarbosa/squilo/api/middleware"
 )
 
 func RegisterTransactionRoutes(v1 *gin.RouterGroup) {

@@ -7,9 +7,9 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "gofin",
-	Short: "gofin base command",
-	Long:  "gofin base command",
+	Use:   "squilo",
+	Short: "squilo base command",
+	Long:  "squilo base command",
 }
 
 func Execute() {

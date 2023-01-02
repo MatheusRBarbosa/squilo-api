@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	p "github.com/matheusrbarbosa/gofin/api/v1/utils/pagination"
-	"github.com/matheusrbarbosa/gofin/application/handlers"
+	p "github.com/matheusrbarbosa/squilo/api/v1/utils/pagination"
+	"github.com/matheusrbarbosa/squilo/application/handlers"
 )
 
 func handleGetUserVaults(ctx *gin.Context) {

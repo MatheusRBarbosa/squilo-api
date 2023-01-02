@@ -3,7 +3,7 @@ package validators
 import (
 	"time"
 
-	"github.com/matheusrbarbosa/gofin/domain/models"
+	"github.com/matheusrbarbosa/squilo/domain/models"
 )
 
 type CreateTransactionRequest struct {

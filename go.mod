@@ -1,4 +1,4 @@
-module github.com/matheusrbarbosa/gofin
+module github.com/matheusrbarbosa/squilo
 
 go 1.19
 

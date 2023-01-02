@@ -1,12 +1,12 @@
 package handlers
 
 import (
-	"github.com/matheusrbarbosa/gofin/application/services"
-	v "github.com/matheusrbarbosa/gofin/application/validators"
-	"github.com/matheusrbarbosa/gofin/domain/dtos"
-	"github.com/matheusrbarbosa/gofin/domain/exceptions"
-	i "github.com/matheusrbarbosa/gofin/domain/interfaces"
-	"github.com/matheusrbarbosa/gofin/infra/database/repositories"
+	"github.com/matheusrbarbosa/squilo/application/services"
+	v "github.com/matheusrbarbosa/squilo/application/validators"
+	"github.com/matheusrbarbosa/squilo/domain/dtos"
+	"github.com/matheusrbarbosa/squilo/domain/exceptions"
+	i "github.com/matheusrbarbosa/squilo/domain/interfaces"
+	"github.com/matheusrbarbosa/squilo/infra/database/repositories"
 	"gorm.io/gorm"
 )
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/matheusrbarbosa/gofin/cmd"
+	"github.com/matheusrbarbosa/squilo/cmd"
 )
 
 func main() {

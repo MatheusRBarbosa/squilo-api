@@ -1,6 +1,6 @@
 package exceptions
 
-type GofinError struct {
+type SquiloError struct {
 	Code         int
 	InternalCode string
 	Message      string
@@ -30,19 +30,19 @@ var (
 	USER_NOT_FOUND = newError(404, "5001", "Não encontrado.", "O usuário procurado não foi encontrado.")
 )
 
-func (e *GofinError) Error() string {
+func (e *SquiloError) Error() string {
 	return e.Message
 }
 
-func SlimError(code int, message string) *GofinError {
-	return &GofinError{
+func SlimError(code int, message string) *SquiloError {
+	return &SquiloError{
 		Message: message,
 		Code:    code,
 	}
 }
 
-func newError(code int, internalCode string, msg string, description string) *GofinError {
-	return &GofinError{
+func newError(code int, internalCode string, msg string, description string) *SquiloError {
+	return &SquiloError{
 		Message:      msg,
 		Code:         code,
 		InternalCode: internalCode,
@@ -50,8 +50,8 @@ func newError(code int, internalCode string, msg string, description string) *Go
 	}
 }
 
-func GetError(e *GofinError) *GofinError {
-	return &GofinError{
+func GetError(e *SquiloError) *SquiloError {
+	return &SquiloError{
 		Message:     e.Message,
 		Code:        e.Code,
 		Description: e.Description,

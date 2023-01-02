@@ -1,4 +1,4 @@
-# Gofin - API para aplicação de fiananças pessoais
+# squilo - API para aplicação de fiananças pessoais
 
 v1 Features:
 - [X] Cadastro

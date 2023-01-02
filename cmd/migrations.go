@@ -3,7 +3,7 @@ package cmd
 import (
 	"log"
 
-	migrator "github.com/matheusrbarbosa/gofin/infra/database"
+	migrator "github.com/matheusrbarbosa/squilo/infra/database"
 	"github.com/spf13/cobra"
 )
 
