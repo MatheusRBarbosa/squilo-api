@@ -10,6 +10,7 @@ type VaultDto struct {
 	TypeId      int       `json:"typeId"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
+	TotalLabel  string    `json:"totalLabel"`
 
 	Type IdName `json:"type"`
 }

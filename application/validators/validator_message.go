@@ -9,8 +9,8 @@ import (
 )
 
 type apiError struct {
-	Param   string
-	Message string
+	Param   string `json:"param"`
+	Message string `json:"message"`
 }
 
 func ParseError(err error) []apiError {

@@ -45,7 +45,7 @@ func (r *vaultRepository) Save(vault m.Vault) error {
 
 func (r *vaultRepository) GetByUserId(userId int, pagination utils.Pagination) ([]m.Vault, error) {
 	vaults := []m.Vault{}
-	result := r.context.Where(&m.Vault{UserId: userId}).Offset(pagination.Offset).Limit(pagination.Limit).Find(&vaults)
+	result := r.context.Preload("Type").Where(&m.Vault{UserId: userId}).Offset(pagination.Offset).Limit(pagination.Limit).Find(&vaults)
 	if result.Error != nil {
 		return []m.Vault{}, result.Error
 	}

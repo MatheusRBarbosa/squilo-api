@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/matheusrbarbosa/squilo/domain/dtos"
+	vtypes "github.com/matheusrbarbosa/squilo/domain/enums/vault_types"
 	"gorm.io/gorm"
 )
 
@@ -34,12 +35,24 @@ func (v *Vault) ParseDto() dtos.VaultDto {
 		TypeId:      v.TypeId,
 		CreatedAt:   v.CreatedAt,
 		UpdatedAt:   v.UpdatedAt,
+		TotalLabel:  v.GetValueLabel(),
 		Type: dtos.IdName{
 			Id:   v.Type.ID,
 			Name: v.Type.Name,
 		},
 	}
 }
+
+// Inner functions
+func (v *Vault) GetValueLabel() string {
+	if v.TypeId == vtypes.Quota {
+		return "Restantes"
+	}
+
+	return "Acumulado"
+}
+
+// Orm Hooks
 
 func (vault *Vault) BeforeCreate(tx *gorm.DB) error {
 	vault.CreatedAt = time.Now()
