@@ -7,10 +7,8 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	crossCutting "github.com/matheusrbarbosa/squilo/crosscutting"
 	l "github.com/matheusrbarbosa/squilo/crosscutting/logger"
-	"github.com/matheusrbarbosa/squilo/domain/exceptions"
 	"github.com/matheusrbarbosa/squilo/domain/interfaces"
 	"github.com/matheusrbarbosa/squilo/domain/models"
-	"github.com/matheusrbarbosa/squilo/infra/database/repositories"
 )
 
 var authedUser *models.User
@@ -59,11 +57,6 @@ func (s *authService) Validate(token string) (*jwt.Token, error) {
 }
 
 func (s *authService) SetAuthUser(user models.User) error {
-	user, err := repositories.UserRepository().GetById(user.ID)
-	if err != nil {
-		return exceptions.UNAUTHORIZED
-	}
-
 	authedUser = &user
 	return nil
 }
